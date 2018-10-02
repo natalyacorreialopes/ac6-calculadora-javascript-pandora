@@ -42,6 +42,17 @@ describe("Operações", function() {
       expect($("#resultado").val()).toBe(num1/num2);
     });
 
+    it("deve colocar a mensagem 'Erro de operação' caso não tenha número a direita.", function(){
+      $("#resultado").val("5/");
+      $("button.resultar").click();
+      expect($("#resultado").val()).toBe("Erro de operação");
+    });
+
+    it("deve manter o número caso só haja o número da esquerda", function(){
+      $("#resultado").val("57.5");
+      $("button.resultar").click();
+      expect($("#resultado").val()).toBe("57.5");
+    });
 
   });
 
