@@ -9,6 +9,10 @@ buttons.forEach(button => {
     button.addEventListener('click', e => {
         let buttonValue = button.innerText
 
+        if (resultado.value === 'Erro de operação') {
+            resultado.value = '';
+        }
+
         if (buttonValue === '=') {
             somar();
             conteudoClicado = '';
@@ -66,7 +70,10 @@ somar = () => {
 
     
     if (arrayString.length !== 3) return false;
-    if (arrayString[3] === '') return false;
+    if (arrayString[2] === '') {
+        document.querySelector('#resultado').value = 'Erro de operação';
+        return false;
+    }
     
 
     arrayString.forEach(string => {
