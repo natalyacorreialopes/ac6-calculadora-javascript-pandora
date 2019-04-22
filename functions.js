@@ -1,5 +1,3 @@
-
-// addEventListener()
 let buttons   = document.querySelectorAll('.calculadora button');
 let sinais    = ['-', '*', '/', '+']
 let resultado = document.querySelector('#resultado')
@@ -9,7 +7,7 @@ buttons.forEach(button => {
     button.addEventListener('click', e => {
         let buttonValue = button.innerText
 
-        if (resultado.value === 'Erro de operação') {
+        if (resultado.value.toLowerCase() === 'erro de operação' || resultado.value.toLowerCase() === 'infinity') {
             resultado.value = '';
         }
 
@@ -31,7 +29,7 @@ buttons.forEach(button => {
 
                 if (validado === false) return false
             }
-            if (sinais.indexOf(buttonValue) >= 0 && resultado.value === '') return false
+            if (sinais.indexOf(buttonValue) >= 0 && (resultado.value === '' || resultado.value === '.')) return false
 
             if (buttonValue === '.') {
                 if (resultado.value !== '') {
@@ -74,7 +72,6 @@ somar = () => {
         document.querySelector('#resultado').value = 'Erro de operação';
         return false;
     }
-    
 
     arrayString.forEach(string => {
         if (sinais.indexOf(string) === -1) {
@@ -85,20 +82,24 @@ somar = () => {
         }
     })
 
+    let soma = null;
     switch (arrayNumero[1]) {
         case '+':
-            document.querySelector('#resultado').value = arrayNumero[0] + arrayNumero[2]
+            soma = arrayNumero[0] + arrayNumero[2];
             break;
         case '-':
-            document.querySelector('#resultado').value = arrayNumero[0] - arrayNumero[2]
+            soma = arrayNumero[0] - arrayNumero[2];
             break;
         case '*':
-            document.querySelector('#resultado').value = arrayNumero[0] * arrayNumero[2]
+            soma = arrayNumero[0] * arrayNumero[2];
             break;
         case '/':
-            document.querySelector('#resultado').value = arrayNumero[0] / arrayNumero[2]
+            soma = arrayNumero[0] / arrayNumero[2];
             break;
     }
-    
-    
+    if (!isNaN(soma)) {
+        document.querySelector('#resultado').value = soma;
+    } else {
+        document.querySelector('#resultado').value = 'Erro de operação';
+    }
 }
